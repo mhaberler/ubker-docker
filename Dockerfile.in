@@ -35,8 +35,8 @@ RUN echo 'APT::Install-Recommends "0";\nAPT::Install-Suggests "0";' > \
       	libncurses5-dev \
       	build-essential \
         file \
-	fakeroot && \
-	uuid-runtime  && \
+	fakeroot \
+	uuid-runtime \
 	openssh-client && \
       	apt-get clean && \
     gem install fpm && \
