@@ -4,11 +4,17 @@
 # user name.
 
 DIR="$PWD"
-USR=`who mom likes | awk '{print $1}'`
+#USR=`who mom likes | awk '{print $1}'`
+
+# for use under jenkins
+USR=jenkins
 
 # --- Configure Here ---
-MAINTAINER="Devin Hughes <devin@jd2.com>"
-D_IMAGE_NAME="dkhughes/ubker:latest"
+#MAINTAINER="Devin Hughes <devin@jd2.com>"
+#D_IMAGE_NAME="dkhughes/ubker:latest"
+MAINTAINER="Michael Haberler <haberlerm@gmail.com>"
+D_IMAGE_NAME="mhaberler/ubker:latest"
+
 D_SHARE_PATH=/home/"$USR"/docker-share/ubker
 D_UBOOT_TOOLS_RPATH=u-boot-xlnx/tools
 D_LINUX_DTC_RPATH=linux-xlnx/scripts/dtc
