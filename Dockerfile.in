@@ -32,7 +32,8 @@ RUN echo 'APT::Install-Recommends "0";\nAPT::Install-Suggests "0";' > \
         libncurses5 \
       	libncurses5-dev \
       	build-essential \
-        file && \
+        file \
+	fakeroot && \
       	apt-get clean && \
     gem install fpm && \
     cd /tmp  && \
@@ -66,7 +67,7 @@ RUN cd /tmp/ && \
     rm -rf /tmp/*
 
 # Edit the path to include the cross compiler
-ENV PATH "/opt/gcc-linaro-hf/bin:/home/jenkins/@u-boot-tools@:/home/jenkins/@linux-dtc@:/opt/bin:$PATH"
+ENV PATH "/opt/gcc-linaro-hf/bin:/opt/bin:$PATH"
 ENV ARCH arm
 ENV CROSS_COMPILE arm-linux-gnueabihf-
 
