@@ -5,6 +5,8 @@ ARG b_uid
 ARG b_gid
 
 ENV TERM xterm
+ENV LANG C
+
 
 # apt config:  silence warnings and set defaults
 ENV DEBIAN_FRONTEND noninteractive
