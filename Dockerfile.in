@@ -37,7 +37,8 @@ RUN echo 'APT::Install-Recommends "0";\nAPT::Install-Suggests "0";' > \
         file \
 	fakeroot \
 	uuid-runtime \
-	openssh-client && \
+	openssh-client \
+	sshpass && \
       	apt-get clean && \
     gem install fpm && \
     cd /tmp  && \
