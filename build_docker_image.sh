@@ -44,8 +44,8 @@ cd "$DIR"
 cat << EOF > run_terminal.sh
 #!/bin/sh
 # Runs to terminal and cleans up when done.
-docker run --rm -ti --user developer \
--v $D_SHARE_PATH:/home/developer \
+docker run --rm -ti --user jenkins \
+-v $D_SHARE_PATH:/home/jenkins \
 $D_IMG_SNAME
 
 EOF

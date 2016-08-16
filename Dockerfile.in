@@ -17,6 +17,10 @@ RUN echo 'APT::Install-Recommends "0";\nAPT::Install-Suggests "0";' > \
     apt-get update && \
     apt-get -y install \
         git \
+	gcc flex bison \
+	make \
+        ruby \
+        ruby-dev \
         libglib2.0-0 \
       	sudo \
       	nano \
@@ -29,16 +33,24 @@ RUN echo 'APT::Install-Recommends "0";\nAPT::Install-Suggests "0";' > \
       	libncurses5-dev \
       	build-essential \
         file && \
-      	apt-get clean
+      	apt-get clean && \
+    gem install fpm && \
+    cd /tmp  && \
+    git clone git://git.kernel.org/pub/scm/utils/dtc/dtc.git -b v1.4.1 && \
+    cd dtc/  && \
+    make PREFIX=/opt install  && \
+    cd /tmp && \
+    rm -rf dtc
+
 
 # Setup non-root user
 RUN export uid=${b_uid} gid=${b_gid} && \
-    mkdir -p /home/developer && \
-    echo "developer:x:${uid}:${gid}:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
-    echo "developer:x:${uid}:" >> /etc/group && \
-    echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && \
-    chmod 0440 /etc/sudoers.d/developer && \
-    chown ${uid}:${gid} /home/developer
+    mkdir -p /home/jenkins && \
+    echo "jenkins:x:${uid}:${gid}:Developer,,,:/home/jenkins:/bin/bash" >> /etc/passwd && \
+    echo "jenkins:x:${uid}:" >> /etc/group && \
+    echo "jenkins ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/jenkins && \
+    chmod 0440 /etc/sudoers.d/jenkins && \
+    chown ${uid}:${gid} /home/jenkins
 
 # Download gcc cross compiler for armhf
 RUN cd /tmp/ && \
@@ -54,11 +66,11 @@ RUN cd /tmp/ && \
     rm -rf /tmp/*
 
 # Edit the path to include the cross compiler
-ENV PATH "/opt/gcc-linaro-hf/bin:/home/developer/@u-boot-tools@:/home/developer/@linux-dtc@:$PATH"
+ENV PATH "/opt/gcc-linaro-hf/bin:/home/jenkins/@u-boot-tools@:/home/jenkins/@linux-dtc@:/opt/bin:$PATH"
 ENV ARCH arm
 ENV CROSS_COMPILE arm-linux-gnueabihf-
 
 # Default to the non-root user
-USER developer
-ENV HOME /home/developer
-WORKDIR /home/developer
+USER jenkins
+ENV HOME /home/jenkins
+WORKDIR /home/jenkins
