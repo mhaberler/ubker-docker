@@ -42,7 +42,7 @@ RUN echo 'APT::Install-Recommends "0";\nAPT::Install-Suggests "0";' > \
       	apt-get clean && \
     gem install fpm && \
     cd /tmp  && \
-    git clone git://git.kernel.org/pub/scm/utils/dtc/dtc.git -b v1.4.1 && \
+    git clone https://github.com/RobertCNelson/dtc.git -b bb.org-4.1-dt-overlays5 && \
     cd dtc/  && \
     make PREFIX=/opt install  && \
     cd /tmp && \
